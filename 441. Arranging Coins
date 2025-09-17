@@ -1,0 +1,21 @@
+class Solution {
+    public int arrangeCoins(int n) {
+        int i=1;
+        int j=n;
+        int complete=0;
+        
+        while(j!=0){
+            
+            if(i>j){
+               break; 
+            }
+
+            j=j-i;
+            i++;
+            complete++;
+
+        }
+            return complete;
+        
+    }
+}
