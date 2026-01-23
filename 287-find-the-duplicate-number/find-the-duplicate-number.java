@@ -1,16 +1,22 @@
 class Solution {
     public int findDuplicate(int[] nums) {
-        int n=nums.length;
-        int ans=-1;
-        HashSet<Integer> set=new HashSet<>();
-        for(int i=0;i<n;i++){
-            if(set.contains(nums[i])){
-                ans=nums[i];
-            }
-            
-                set.add(nums[i]);
-            
+
+        int slow = nums[0];
+        int fast = nums[0];
+
+        // Phase 1: detect cycle
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (slow != fast);
+
+        // Phase 2: find entrance to cycle
+        slow = nums[0];
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
         }
-        return ans;
+
+        return slow;
     }
 }
