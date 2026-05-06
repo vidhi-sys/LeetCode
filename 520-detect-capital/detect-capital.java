@@ -1,21 +1,26 @@
 class Solution {
     public boolean detectCapitalUse(String word) {
-        // Case 1: All caps
-        if (word.equals(word.toUpperCase())) return true;
-        
-        // Case 2: All lowercase
-        if (word.equals(word.toLowerCase())) return true;
-        
-        // Case 3: Title Case (First letter cap, rest lower)
-        // We check if the first char is upper AND the rest is lower
-        String firstChar = word.substring(0, 1);
-        String rest = word.substring(1);
-        
-        if (firstChar.equals(firstChar.toUpperCase()) && 
-            rest.equals(rest.toLowerCase())) {
+        int n = word.length();
+        int caps = 0;
+
+        // Count all uppercase characters
+        for (int i = 0; i < n; i++) {
+            if (Character.isUpperCase(word.charAt(i))) {
+                caps++;
+            }
+        }
+
+        // Case 1: All letters are capitals (USA)
+        if (caps == n) return true;
+
+        // Case 2: No letters are capitals (leetcode)
+        if (caps == 0) return true;
+
+        // Case 3: Only one capital, and it must be the first letter (Google)
+        if (caps == 1 && Character.isUpperCase(word.charAt(0))) {
             return true;
         }
-        
+
         return false;
     }
 }
