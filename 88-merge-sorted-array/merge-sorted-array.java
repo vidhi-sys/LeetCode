@@ -1,13 +1,20 @@
 class Solution {
     public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int i=m;
-        int j=0;
-        while(j!=n&&i!=m+n){
-            nums1[i]=nums2[j];
-            i++;
-            j++;
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for(int i=0;i<m;i++){
+            
+                 minHeap.add(nums1[i]);
+            
         }
-        Arrays.sort(nums1);
+        for(int i:nums2){
+            minHeap.add(i);
+        }
+        for(int i=0;i<m+n;i++){
+            nums1[i]=minHeap.poll();
+
+
+            
+        }
 
         
     }
