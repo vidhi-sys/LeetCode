@@ -2,7 +2,8 @@ class Solution {
     public int maxProduct(int n) {
         String s=Integer.toString(n);
         int[]numbers=new int[s.length()];
-        for(int i=0;i<numbers.length;i++){
+          int len=numbers.length;
+        for(int i=0;i<len;i++){
             numbers[i]=n%10;
             n=n/10;
         }
@@ -10,15 +11,9 @@ class Solution {
         if(numbers.length==2){
             return (numbers[0]*numbers[1]);
         }
-        PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
-         for(int i=0;i<numbers.length;i++){
-            pq.add(numbers[i]);
-           
-         }
-         int num=pq.poll();
-         product=num*pq.peek();
-         return product;
-       
+      
+        Arrays.sort(numbers);
+        return (numbers[len-1]*numbers[len-2]);
         
     }
 }
