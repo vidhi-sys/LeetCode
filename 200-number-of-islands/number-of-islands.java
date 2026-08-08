@@ -9,7 +9,7 @@ class pair{
     }
 class Solution {
     
-    public void bfs(int i, int j, char[][] grid,boolean[][] vis){
+   /* public void bfs(int i, int j, char[][] grid,boolean[][] vis){
         int n=grid.length;
         int m=grid[0].length;
         Queue<pair>q= new LinkedList<>();
@@ -57,6 +57,31 @@ class Solution {
         }
 
         }
+    }*/
+    public void dfs(int i,int j, char[][] grid, boolean[][] vis){
+       int m=grid[0].length;
+        vis[i][j]=true;
+        if(i-1>=0&&vis[i-1][j]==false){
+            if(grid[i-1][j]=='1'){
+        dfs(i-1,j,grid,vis);
+            }
+        }
+        if(j-1>=0&&vis[i][j-1]==false){
+            if(grid[i][j-1]=='1'){
+        dfs(i,j-1,grid,vis);
+            }
+        }
+        if(i+1<grid.length&&vis[i+1][j]==false){
+            if(grid[i+1][j]=='1'){
+        dfs(i+1,j,grid,vis);
+            }
+        }
+        if(j+1<m&&vis[i][j+1]==false){
+            if(grid[i][j+1]=='1'){
+        dfs(i,j+1,grid,vis);
+            }
+        }
+
     }
     public int numIslands(char[][] grid) {
         int n=grid.length;
@@ -66,7 +91,7 @@ class Solution {
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j]=='1'&&vis[i][j]==false){
-                    bfs(i,j,grid,vis);
+                    dfs(i,j,grid,vis);
                     count++;
                 }
             }
