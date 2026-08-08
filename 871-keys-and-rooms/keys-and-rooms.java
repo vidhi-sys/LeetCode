@@ -1,11 +1,19 @@
 class Solution {
+    public void dfs(int start, List<List<Integer>> rooms,boolean[]vis){
+    vis[start]=true;
+    for(int ele:rooms.get(start)){
+        if(!vis[ele]){
+            dfs(ele,rooms,vis);
+        }
+    }    }
     public boolean canVisitAllRooms(List<List<Integer>> rooms) {
         int n=rooms.size();
         boolean[]vis= new boolean[n];
         // initially false hai
         vis[0]=true;
+        dfs(0,rooms,vis);
         //0th room key is always there with us
-        Queue<Integer> q= new LinkedList<>();
+      /*  Queue<Integer> q= new LinkedList<>();
         q.add(0);
         while(q.size()>0){
             int top=q.remove();
@@ -17,7 +25,9 @@ class Solution {
 
             }
             
-        }
+        }*/
+
+
         for(boolean ele:vis){
 
 if(ele== false){
