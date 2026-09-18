@@ -1,6 +1,6 @@
 class Solution {
     public int findTheWinner(int n, int k) {
-        Queue<Integer> q= new LinkedList<>();
+        Deque<Integer> q = new ArrayDeque<>();
         for(int i=1;i<=n;i++){
                 q.add(i);
             }
