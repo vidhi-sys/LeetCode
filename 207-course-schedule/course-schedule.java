@@ -1,58 +1,62 @@
-
 class Solution {
 
-    public boolean dfs(int course, ArrayList<ArrayList<Integer>> graph, int[] vis) {
+    public boolean dfs(int course,
+                       ArrayList<ArrayList<Integer>> graph,
+                       boolean[] vis,
+                       boolean[] path,
+                       ArrayList<Integer> ans) {
 
-        // Currently visiting -> cycle found
-        if (vis[course] == 1) {
-            return true;
-        }
-
-        // Already completely processed
-        if (vis[course] == 2) {
+        // cycle
+        if (path[course]) {
             return false;
         }
 
-        // Mark as currently visiting
-        vis[course] = 1;
+        // already processed
+        if (vis[course]) {
+            return true;
+        }
+
+        vis[course] = true;
+        path[course] = true;
 
         for (int next : graph.get(course)) {
-            if (dfs(next, graph, vis)) {
-                return true;
+            if (!dfs(next, graph, vis, path, ans)) {
+                return false;
             }
         }
 
-        // Mark as completely processed
-        vis[course] = 2;
+        path[course] = false;
 
-        return false;
+        // TOPological sort
+        ans.add(course);
+
+        return true;
     }
 
     public boolean canFinish(int n, int[][] courses) {
 
-        // Create graph
+        ArrayList<Integer> ans = new ArrayList<>();
+
         ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
             graph.add(new ArrayList<>());
         }
 
-        // Build graph
-        for (int[] course : courses) {
-            int a = course[0];
-            int b = course[1];
-
-            // b -> a
-            graph.get(b).add(a);
+        // prerequisite -> course
+        for (int[] c : courses) {
+            graph.get(c[1]).add(c[0]);
         }
 
-        int[] vis = new int[n];
+        boolean[] vis = new boolean[n];
+        boolean[] path = new boolean[n];
 
-        // Check every course
         for (int i = 0; i < n; i++) {
-            if (vis[i] == 0) {
-                if (dfs(i, graph, vis)) {
-                    return false; // cycle exists
+
+            if (!vis[i]) {
+
+                if (!dfs(i, graph, vis, path, ans)) {
+                    return false;
                 }
             }
         }
@@ -60,4 +64,3 @@ class Solution {
         return true;
     }
 }
-
